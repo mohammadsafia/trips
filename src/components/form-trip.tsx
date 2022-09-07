@@ -14,11 +14,17 @@ interface FormTripProps {
 
 export default function FormTrip(props: FormTripProps) {
 	const {user} = useAuthContext() as any;
+	const [isSubmitting, setIsSubmitting] = React.useState<boolean>(false)
 	const [price, setPrice] = React.useState<string | null>(null);
 	const [date, setDate] = React.useState<string | null>(null);
 	const [description, setDescription] = React.useState<string | null>(null);
 	const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
+
+		if(!price || !description || !date){
+			return alert('please fill all fields')
+		}
+		setIsSubmitting(true);
 
 		await addDoc(collection(db, 'trips'), {
 			price, date, description, uid: user.uid, displayName: user.displayName
@@ -40,6 +46,7 @@ export default function FormTrip(props: FormTripProps) {
 							type="number"
 							onChange={(e) => setPrice(e.target.value)}
 							value={price}
+							required
 						/>
 					</FormControl>
 					<FormControl fullWidth sx={{m: 1}}>
@@ -57,7 +64,7 @@ export default function FormTrip(props: FormTripProps) {
 						<TextField
 							InputLabelProps={{shrink: true}}
 							onChange={(e) => setDescription(e.target.value)}
-							value={description} rows={4}
+							value={description} rows={1}
 							multiline margin="normal"
 							required fullWidth
 							name="description"
@@ -66,7 +73,7 @@ export default function FormTrip(props: FormTripProps) {
 						/>
 					</FormControl>
 					<FormControl fullWidth sx={{m: 1}}>
-						<Button type="submit" fullWidth variant="contained" sx={{mt: 3, mb: 2}}>Add</Button>
+						<Button disabled={isSubmitting} type="submit" fullWidth variant="contained" sx={{mt: 3, mb: 2}}>Add</Button>
 					</FormControl>
 				</Box>
 			</Container>

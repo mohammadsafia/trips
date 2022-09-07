@@ -34,20 +34,25 @@ const TotalTrips: React.FC<PropsTotalTrips> = (props) => {
 
 	return (<>
 			<div>
-				{keys.map((key) => (<Accordion>
+				{keys.map((key) => {
+					const lenderSub = key === lender && (convertDocsToObject()[lender] - convertDocsToObject()[borrower])
+					return (
+						<Accordion>
 						<AccordionSummary
 							expandIcon={<ExpandMoreIcon/>}
 							aria-controls="panel1a-content"
 							id="panel1a-header"
 						>
-							<Typography>{key} - {key === lender ? 'Lender' : 'Borrower'} {key === lender && (convertDocsToObject()[lender] - convertDocsToObject()[borrower])} </Typography>
+							<Typography>{key} - {key === lender ? 'Lender' : 'Borrower'} {lenderSub && lenderSub.toFixed(2)} </Typography>
 						</AccordionSummary>
 						<AccordionDetails>
 							<Typography>
 								{convertDocsToObject()[key]}
 							</Typography>
 						</AccordionDetails>
-					</Accordion>))}
+					</Accordion>
+					)
+				})}
 			</div>
 		</>);
 };

@@ -64,7 +64,7 @@ export default function FormTrip(props: FormTripProps) {
 						<TextField
 							InputLabelProps={{shrink: true}}
 							onChange={(e) => setDescription(e.target.value)}
-							value={description} rows={1}
+							value={description} rows={2}
 							multiline margin="normal"
 							required fullWidth
 							name="description"

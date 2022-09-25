@@ -37,7 +37,7 @@ const EnhancedTable: React.FC<IEnhancedTableProps> = ({trips}) => {
       <Paper sx={{ width: "100%", mb: 2 }}>
         <Container component='main' maxWidth='xl'>
           <TableContainer sx={{ maxHeight: 400 }}>
-            <Table stickyHeader aria-label='sticky table'>
+            <Table size="small" stickyHeader aria-label='sticky table'>
               <TableHead>
                 <TableRow>
                   <TableCell align='left'>Username</TableCell>
@@ -97,4 +97,5 @@ const EnhancedTable: React.FC<IEnhancedTableProps> = ({trips}) => {
   );
 }
 
+// @ts-ignore
 export default EnhancedTable;
